@@ -430,8 +430,7 @@ def get_layers(board, colors, defs, toPlot):
                 pctl.SetLayer(l)
                 pctl.PlotLayer()
         pctl.ClosePlot()
-        board.SetVisibleAlls()
-        boardsize = board.ComputeBoundingBox()
+        boardsize = board.ComputeBoundingBox(True)
         for f, _, process in toPlot:
             for svg_file in os.listdir(tmp):
                 if svg_file.endswith("-" + f + ".svg"):
@@ -485,8 +484,7 @@ def get_board_substrate(board, colors, defs, holes, back):
                 pctl.SetLayer(l)
                 pctl.PlotLayer()
         pctl.ClosePlot()
-        board.SetVisibleAlls()
-        boardsize = board.ComputeBoundingBox()
+        boardsize = board.ComputeBoundingBox(True)
         for f, _, process in toPlot:
             for svg_file in os.listdir(tmp):
                 if svg_file.endswith("-" + f + ".svg"):
@@ -520,8 +518,7 @@ def get_hole_mask(board, defs):
     mask = etree.SubElement(defs, "mask", id="hole-mask")
     container = etree.SubElement(mask, "g")
 
-    board.SetVisibleAlls()
-    bb = board.ComputeBoundingBox()
+    bb = board.ComputeBoundingBox(True)
     bg = etree.SubElement(container, "rect", x="0", y="0", fill="white")
     bg.attrib["x"] = str(ki2svg(bb.GetX()))
     bg.attrib["y"] = str(ki2svg(bb.GetY()))
@@ -883,8 +880,7 @@ def main():
                                         remapping=remapping))
         sys.exit(0)
 
-    board.SetVisibleAlls()
-    bb = board.ComputeBoundingBox()
+    bb = board.ComputeBoundingBox(True)
     transform_string = ""
     # Let me briefly explain what's going on. KiCAD outputs SVG in user units,
     # where 1 unit is 1/10 of an inch (in v5) or KiCAD native unit (v6). So to
