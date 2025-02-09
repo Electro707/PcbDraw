@@ -1154,7 +1154,7 @@ class PcbPlotter():
             center = footprint.GetPosition()
             orient = math.radians(footprint.GetOrientation().AsDegrees())
             pos = (center.x, center.y, orient)
-            props = {str(i): v for i, v in dict(footprint.GetPropertiesNative()).items()}
+            props = footprint.GetFieldsText()
             callback(lib, name, ref, value, pos, props)
 
     def get_def_slot(self, tag_name: str, id: str) -> etree.SubElement:
